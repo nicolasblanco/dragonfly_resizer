@@ -5,5 +5,5 @@ ruby '2.1.2'
 
 gem 'sinatra'
 gem 'dragonfly'
-gem 'thin'
+gem 'unicorn'
 gem 'pry'
