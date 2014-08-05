@@ -1,10 +1,13 @@
 require 'sinatra'
 require 'dragonfly'
+require 'timeout'
 
 app = Dragonfly.app(:images).configure_with(:imagemagick)
 
 get '/images/:size.:format' do |size, format|
-  format_response(app.fetch_url(Rack::Utils.unescape(params[:url])).thumb("#{size}#").encode(format).to_response(env))
+  Timeout::timeout(5) do
+    format_response(app.fetch_url(Rack::Utils.unescape(params[:url])).thumb("#{size}#").encode(format).to_response(env))
+  end
 end
 
 private
